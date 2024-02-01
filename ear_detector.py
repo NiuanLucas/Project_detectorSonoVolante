@@ -1,16 +1,32 @@
+# ear_detector.py
+
 import cv2
 import numpy as np
 from utils import initialize_video, initialize_detector, calcular_ear, play_sound
 from config import get_ear_threshold, get_tempo_alerta
 
+# Descrição:
+# Este script detecta sonolência ao volante usando a técnica EAR (Eye Aspect Ratio).
+# O EAR é um indicador que mede a abertura dos olhos, e uma diminuição repentina no EAR
+# pode indicar que o motorista está ficando sonolento.
 
 def detectar_sonolencia_ear(video_source=0):
+    # Inicialização do detector de face e preditor facial
     detector, predictor = initialize_detector()
+
+    # Inicialização do vídeo
     video = initialize_video(video_source)
+
+    # Obtenção do limiar EAR a partir do arquivo de configuração
     ear_threshold = get_ear_threshold()
+
+    # Obtenção do tempo de alerta a partir do arquivo de configuração
     tempo_alerta = get_tempo_alerta()
 
+    # Obtém a taxa de quadros por segundo (FPS) do vídeo
     fps = video.get(cv2.CAP_PROP_FPS)
+
+    # Inicialização de variáveis
     contador_fechados = 0
     alerta_sono = False
     tempo_acumulado_fechado = 0
@@ -72,7 +88,6 @@ def detectar_sonolencia_ear(video_source=0):
 
     video.release()
     cv2.destroyAllWindows()
-
 
 if __name__ == "__main__":
     detectar_sonolencia_ear()

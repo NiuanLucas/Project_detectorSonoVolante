@@ -1,16 +1,33 @@
+# perclos_detector.py
+
 import cv2
 import numpy as np
 from utils import initialize_video, initialize_detector, calcular_ear, play_sound
 from config import get_ear_threshold, get_tempo_alerta
 
+# Descrição:
+# Este script detecta sonolência ao volante usando a técnica PERCLOS (Percentage of Eye Closure).
+# O PERCLOS mede a porcentagem de tempo que os olhos estão fechados durante um determinado período,
+# e um valor acima do limiar pode indicar que o motorista está ficando sonolento.
+
 
 def detectar_sonolencia_perclos(video_source=0):
+    # Inicialização do detector de face e preditor facial
     detector, predictor = initialize_detector()
+
+    # Inicialização do vídeo
     video = initialize_video(video_source)
+
+    # Obtenção do limiar EAR a partir do arquivo de configuração
     ear_threshold = get_ear_threshold()
+
+    # Obtenção do tempo de alerta a partir do arquivo de configuração
     tempo_alerta = get_tempo_alerta()
 
+    # Obtém a taxa de quadros por segundo (FPS) do vídeo
     fps = video.get(cv2.CAP_PROP_FPS)
+
+    # Inicialização de variáveis
     frames_fechados = 0
     total_frames = 0
     alerta_sono = False
@@ -20,6 +37,7 @@ def detectar_sonolencia_perclos(video_source=0):
         if not ret:
             break
 
+        # Chama a função para reproduzir o som de alerta
         play_sound(alerta_sono)
 
         # Inicialização da variável perclos no início do loop
