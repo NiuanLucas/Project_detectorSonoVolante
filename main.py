@@ -11,23 +11,28 @@ import piscadas_detector
 
 
 def main():
-    print("Selecione a técnica de detecção de sonolência:")
-    print("1: EAR (Eye Aspect Ratio)")
-    print("2: PERCLOS (Percentage of Eyelid Closure)")
-    print("3: Análise de Frequência e Duração das Piscadas")
-    escolha = input("Digite o número da técnica escolhida (1, 2, ou 3): ")
+    while True:
+        print("Selecione a técnica de detecção de sonolência:")
+        print("1: EAR (Eye Aspect Ratio)")
+        print("2: PERCLOS (Percentage of Eyelid Closure)")
+        print("3: Análise de Frequência e Duração das Piscadas")
+        print("Pressione 'q' para sair")
+        escolha = input("Digite o número da técnica escolhida (1, 2, ou 3): ")
 
-    if escolha == '1':
-        # Chama a detecção de sonolência usando EAR
-        ear_detector.detectar_sonolencia_ear()
-    elif escolha == '2':
-        # Chama a detecção de sonolência usando PERCLOS
-        perclos_detector.detectar_sonolencia_perclos()
-    elif escolha == '3':
-        # Chama a detecção de sonolência usando análise de piscadas
-        piscadas_detector.detectar_sonolencia_piscadas()
-    else:
-        print("Escolha inválida. Por favor, selecione 1, 2, ou 3.")
+        if escolha == '1':
+            # Chama a detecção de sonolência usando EAR
+            ear_detector.detectar_sonolencia_ear()
+        elif escolha == '2':
+            # Chama a detecção de sonolência usando PERCLOS
+            perclos_detector.detect_drowsiness_perclos()
+        elif escolha == '3':
+            # Chama a detecção de sonolência usando análise de piscadas
+            piscadas_detector.detectar_sonolencia_piscadas()
+        elif escolha == 'q':
+            # Opção para sair do programa
+            break
+        else:
+            print("Escolha inválida. Por favor, selecione 1, 2, ou 3.")
 
 
 if __name__ == "__main__":
